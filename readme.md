@@ -65,9 +65,12 @@ project/
 ├── README.md
 ├── requirements.txt
 ├── outputs/
+|   |──distilbert_evaluation_matrix/
 │   ├── attention_maps/
 │   ├── shap_outputs/
-│   └── lime_outputs/
+│   ├── lime_outputs/
+│   ├── error-analysis_runtime-comparision/
+│   └── shap_vs_lime/
 └── report.pdf
 
 ---
@@ -89,7 +92,7 @@ Open the Kaggle notebook and run all cells step by step.
 If running locally:
 
 ```bash
-jupyter notebook transformer_kaggle.ipynb
+transformer-sentiment-analysis-project-urwatehseen.ipynb
 ```
 
 ---
@@ -107,24 +110,22 @@ jupyter notebook transformer_kaggle.ipynb
 9. Perform Error Analysis
 
 ---
-
 # Results
 
-The Transformer model achieved good sentiment classification performance and provided explainable predictions using attention visualization, SHAP, and LIME.
+The fine-tuned DistilBERT model achieved **93% accuracy** on a balanced 1,000-sample IMDb test set, with 0.93 precision, recall, and F1-score across both positive and negative classes — indicating no bias toward either sentiment.
 
----
+| Class        | Precision | Recall | F1-Score |
+|--------------|-----------|--------|----------|
+| Negative     | 0.93      | 0.92   | 0.92     |
+| Positive     | 0.93      | 0.93   | 0.93     |
+| **Weighted Avg** | **0.93** | **0.93** | **0.93** |
 
-# requirements.txt
+### Explainability
+- **Attention Analysis** — Final-layer [CLS] token attention confirmed the model focuses on sentiment-bearing words (e.g., *terrible*, *outstanding*) rather than stopwords.
+- **SHAP** — Identified globally influential tokens such as *good*, *great*, and *boring*, with high faithfulness and stability (~28s/sample).
+- **LIME** — Provided fast local explanations (~8.4s/sample) highlighting key drivers per prediction, useful for quick debugging.
 
-transformers
-torch
-numpy
-pandas
-matplotlib
-seaborn
-scikit-learn
-datasets
-shap
-lime
-jupyter
+### Error Analysis
+The 73 misclassified samples were primarily caused by **sarcasm**, **negation constructs**, and **mixed-sentiment** reviews — known limitations of token-level models.
+
 

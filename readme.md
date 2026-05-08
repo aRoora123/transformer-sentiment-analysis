@@ -59,19 +59,21 @@ Software:
 
 # Project Structure
 
-project/
-│
+# Project Structure
+
+
 ├── transformer_kaggle.ipynb
 ├── README.md
 ├── requirements.txt
 ├── outputs/
-|   |──distilbert_evaluation_matrix/
+│   ├── distilbert_evaluation_matrix/
 │   ├── attention_maps/
 │   ├── shap_outputs/
 │   ├── lime_outputs/
-│   ├── error-analysis_runtime-comparision/
+│   ├── error_analysis_runtime_comparison/
 │   └── shap_vs_lime/
 └── report.pdf
+
 
 ---
 
